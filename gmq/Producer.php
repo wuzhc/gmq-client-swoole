@@ -133,6 +133,14 @@ class Producer
 
         return Response::newErr(sprintf('job.id %s publish failed, %s', $reJob->job->id, $reJob->attempts));
     }
+
+    public function __destruct()
+    {
+        /** @var Handler $handler */
+        foreach ($this->handlers as $handler) {
+            $handler->conn->close();
+        }
+    }
 }
 
 class Handler
