@@ -2,6 +2,7 @@
 
 namespace gmq;
 
+
 class Job
 {
     public $id;

@@ -1,3 +1,8 @@
+> 这是一个php版本的gmq客户端,基于swoole开发
+
+## 生产者
+producer.php
+```php
 <?php
 
 use gmq\Producer;
@@ -8,6 +13,8 @@ include 'autoload.php';
 
 $url = 'http://127.0.0.1:9595/getNodes';
 $p = new Producer();
+
+// 连接到注册中心
 $p->connectToRegister($url);
 
 // 或者直接连接到指定节点
@@ -36,3 +43,4 @@ for ($i = 0; $i < 100; $i++) {
             echo '[unknown] ' . $resp->body . PHP_EOL;
     }
 }
+```

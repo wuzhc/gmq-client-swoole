@@ -2,6 +2,7 @@
 
 namespace gmq;
 
+
 class Pkg
 {
     public $version;

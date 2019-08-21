@@ -27,7 +27,7 @@ $client->on("receive", function (swoole_client $cli, $data) {
 });
 
 $client->on("error", function (swoole_client $cli) {
-    echo "error\n";
+    echo "Connection close\n";
 });
 
 $client->on("close", function (swoole_client $cli) {

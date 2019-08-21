@@ -2,18 +2,7 @@
 
 namespace gmq;
 
-/**
- * 错误类
- * Class Errors
- * Usage:
- * $err = Errors::newErr();
- * $err->msg = 'xxx';
- * $err->code = 1;
- * Or:
- * $err = Errors::newErr('xxx', 1);
- *
- * @author wuzhc 20190516
- */
+
 class Errors
 {
     public $msg;
