@@ -12,6 +12,8 @@ class Response
     public $type;
     public $bodyLen;
     public $body;
+    public $from;
+    public $time;
 
     public static function newErr($err)
     {

@@ -26,6 +26,7 @@ class Protocol
         $resp->type = $type[1];
         $resp->bodyLen = $bodyLen[1];
         $resp->body = $body[1];
+        $resp->time = time();
 
         return $resp;
     }

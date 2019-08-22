@@ -15,7 +15,7 @@ $p->connectToRegister($url);
 // $p->connectToNode('127.0.0.1:9502');
 
 // 发布100个消息
-for ($i = 0; $i < 100; $i++) {
+for ($i = 0; $i < 1000000; $i++) {
     $job = new Job();
     $job->id = uniqid(time());
     $job->topic = 'topic_007';

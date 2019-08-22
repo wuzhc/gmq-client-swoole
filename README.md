@@ -1,7 +1,7 @@
 > 这是一个php版本的gmq客户端,基于swoole开发
 
 ## 生产者
-该版本的生成者是同步模式,发布消息后会等待响应,然后进行下个消息发布,当发布完毕后,客户端主动关闭与服务端的连接
+生成者发布消息是同步模式,支持消息发布失败重试功能(发布给一个失败后,会尝试发布给其他节点)
 producer.php
 ```php
 <?php
@@ -44,4 +44,35 @@ for ($i = 0; $i < 100; $i++) {
             echo '[unknown] ' . $resp->body . PHP_EOL;
     }
 }
+```
+
+## 消费者
+消费使用swoole的异步客户端,用户可以自定义消费函数
+```php
+<?php
+
+use gmq\Consumer;
+use gmq\Context;
+
+include 'autoload.php';
+
+// 实例化消费者时需要指定主题
+$c = new Consumer('topic_007');
+// 消息回调处理
+$c->onJob(function (Context $ctx) {
+    echo sprintf("[from %s] %s\n", $ctx->from, $ctx->body);
+});
+// 结果回调处理
+$c->onMessage(function (Context $ctx) {
+    echo sprintf("[from %s] %s\n", $ctx->from, $ctx->body);
+});
+// 错误回调处理
+$c->onError(function (Context $ctx) {
+    echo sprintf("[from %s] %s\n", $ctx->from, $ctx->body);
+});
+
+$url = 'http://127.0.0.1:9595/getNodes';
+$c->connectToRegister($url);
+// $c->connectToNode('127.0.0.1:9503');
+$c->processWait();
 ```
