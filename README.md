@@ -47,7 +47,8 @@ for ($i = 0; $i < 100; $i++) {
 ```
 
 ## 消费者
-消费使用swoole的异步客户端,用户可以自定义消费函数
+消费使用swoole的异步客户端;定时轮询注册中心,获取节点最新状态;用户可以自定义消费函数
+consumer.php
 ```php
 <?php
 
@@ -75,4 +76,18 @@ $url = 'http://127.0.0.1:9595/getNodes';
 $c->connectToRegister($url);
 // $c->connectToNode('127.0.0.1:9503');
 $c->processWait();
+```
+
+## 使用
+```bash
+php producer.php
+php consumer.php
+
+# 生成者成功返回消息ID
+[success] 15664763255d5e8825bf898
+[success] 15664763255d5e8825b522f
+
+# 消费者成功返回消息结构
+[from 127.0.0.1:9503] {"Id":"15664763255d5e8825bf898","Topic":"topic_007","Delay":20,"TTR":0,"Body":"hello gmq","Status":3,"ConsumeNum":0}
+[from 127.0.0.1:9503] {"Id":"15664763255d5e8825b522f","Topic":"topic_007","Delay":20,"TTR":0,"Body":"hello gmq","Status":3,"ConsumeNum":0}
 ```
